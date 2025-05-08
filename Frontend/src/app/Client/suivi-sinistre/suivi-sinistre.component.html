@@ -1,0 +1,160 @@
+<!-- suivi-sinistre.component.html -->
+
+<app-nav-client></app-nav-client>
+
+<!-- Conteneur global en deux colonnes -->
+<div class="layout-container">
+  <!-- Section statique à gauche -->
+  <div class="left-section">
+    <mat-card class="static-banner">
+      <img [src]="staticImageUrl" alt="Bannière de suivi de sinistre" class="banner-image">
+      <p class="banner-caption">{{ staticCaption }}</p>
+    </mat-card>
+  </div>
+
+  <!-- Section dynamique à droite -->
+  <div class="right-section">
+    <form [formGroup]="sinistresForm" class="sinistre-form">
+      <!-- Zone de chargement globale -->
+      <mat-card *ngIf="loading" class="loading-card">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+        <p>Chargement des sinistres...</p>
+      </mat-card>
+
+      <!-- Liste des sinistres -->
+      <div *ngIf="!loading">
+        <div *ngIf="sinistres.controls.length === 0" class="no-sinistres">
+          <p>Aucun sinistre trouvé.</p>
+        </div>
+       
+        <div formArrayName="sinistres">
+          <div *ngFor="let sinistreGroup of sinistres.controls; index as i" [formGroupName]="i">
+            <mat-card class="sinistre-card">
+              <!-- En-tête du sinistre -->
+              <div class="header">
+                <div class="status-badge">
+                  <mat-icon [style.color]="getStatutColor(sinistreGroup.get('statut')?.value)"
+                           class="status-icon"
+                           [matTooltip]="formatStatut(sinistreGroup.get('statut')?.value)">
+                    info
+                  </mat-icon>
+                </div>
+                <h2 class="title">Sinistre #{{ sinistreGroup.get('id')?.value }}</h2>
+                <span class="date-badge">
+                  {{ sinistreGroup.get('dateDeclaration')?.value | date:'dd/MM/yyyy' }}
+                </span>
+              </div>
+             
+              <mat-divider></mat-divider>
+             
+              <!-- Informations principales -->
+              <div class="sinistre-main-info">
+                <div class="sinistre-detail">
+                  <span class="detail-label">Statut:</span>
+                  <span class="detail-value" [style.color]="getStatutColor(sinistreGroup.get('statut')?.value)">
+                    {{ formatStatut(sinistreGroup.get('statut')?.value) }}
+                  </span>
+                </div>
+               
+                <div class="sinistre-detail">
+                  <span class="detail-label">Type:</span>
+                  <span class="detail-value">{{ sinistreGroup.get('type')?.value }}</span>
+                </div>
+               
+                <div class="sinistre-detail">
+                  <span class="detail-label">Lieu:</span>
+                  <span class="detail-value">{{ sinistreGroup.get('lieu')?.value }}</span>
+                </div>
+               
+                <div class="sinistre-detail">
+                  <span class="detail-label">Agence Client:</span>
+                  <span class="detail-value">{{ sinistreGroup.get('agenceClient')?.value }}</span>
+                </div>
+               
+                <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('numeroAssurence')?.value)">
+                  <span class="detail-label">N° Assurance:</span>
+                  <span class="detail-value">{{ sinistreGroup.get('numeroAssurence')?.value }}</span>
+                </div>
+              </div>
+             
+              <!-- Liste des glaces endommagées -->
+              <div class="glaces-section" *ngIf="extractGlacesFromComment(sinistreGroup.get('commentaire')?.value).length > 0">
+                <h3>Glaces endommagées:</h3>
+                <div class="glaces-container">
+                  <mat-chip-set>
+                    <mat-chip *ngFor="let glace of extractGlacesFromComment(sinistreGroup.get('commentaire')?.value)">
+                      {{ glace }}
+                    </mat-chip>
+                  </mat-chip-set>
+                </div>
+              </div>
+             
+              <!-- Commentaires additionnels -->
+              <div class="comments-section" *ngIf="extractAdditionalComments(sinistreGroup.get('commentaire')?.value)">
+                <h3>Commentaires additionnels:</h3>
+                <p class="additional-comments">{{ extractAdditionalComments(sinistreGroup.get('commentaire')?.value) }}</p>
+              </div>
+
+              <!-- Informations sur l'adversaire (si disponibles) -->
+              <mat-expansion-panel *ngIf="hasAdversaireInfo(i)" class="adversaire-panel">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Informations sur l'adversaire
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+               
+                <div class="adversaire-details">
+                  <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('prenomAdversaire')?.value) || hasValue(sinistreGroup.get('nomAdversaire')?.value)">
+                    <span class="detail-label">Nom:</span>
+                    <span class="detail-value">
+                      {{ sinistreGroup.get('prenomAdversaire')?.value || '' }}
+                      {{ sinistreGroup.get('nomAdversaire')?.value || '' }}
+                    </span>
+                  </div>
+                 
+                  <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('numeroAssurenceAdversaire')?.value)">
+                    <span class="detail-label">N° Assurance:</span>
+                    <span class="detail-value">{{ sinistreGroup.get('numeroAssurenceAdversaire')?.value }}</span>
+                  </div>
+                 
+                  <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('matriculeAdvr')?.value)">
+                    <span class="detail-label">Immatriculation:</span>
+                    <span class="detail-value">{{ sinistreGroup.get('matriculeAdvr')?.value }}</span>
+                  </div>
+                 
+                  <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('marqueVoitureAdvr')?.value)">
+                    <span class="detail-label">Marque du véhicule:</span>
+                    <span class="detail-value">{{ sinistreGroup.get('marqueVoitureAdvr')?.value }}</span>
+                  </div>
+                 
+                  <div class="sinistre-detail" *ngIf="hasValue(sinistreGroup.get('agenceAdvr')?.value)">
+                    <span class="detail-label">Agence:</span>
+                    <span class="detail-value">{{ sinistreGroup.get('agenceAdvr')?.value }}</span>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+             
+              <!-- Galerie d'images -->
+              <div class="images-section" *ngIf="sinistreGroup.get('images')?.value && sinistreGroup.get('images')?.value.length > 0">
+                <h3>Photos:</h3>
+                <div class="image-gallery">
+                  <div class="image-container" *ngFor="let image of sinistreGroup.get('images')?.value">
+                    <img [src]="getImageUrl(image)" alt="Photo du sinistre" class="sinistre-image"
+                         (click)="handleImageClick($event)">
+                  </div>
+                </div>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+       
+        <div class="actions">
+          <button mat-raised-button color="primary" (click)="refreshSinistres()" [disabled]="loading">
+            <mat-progress-spinner *ngIf="loading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <span *ngIf="!loading">Rafraîchir</span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,164 @@
+<app-nav-admin></app-nav-admin>
+
+<!-- Conteneur global en deux colonnes -->
+<div class="layout-container">
+  <!-- Section statique à gauche -->
+  <div class="left-section">
+    <mat-card class="static-banner">
+      <img src="../../../assets/Sinistre.jpg" alt="Bannière de gestion des sinistres" class="banner-image">
+      <h2><span class="highlight">Contrôle</span> des Incidents Déclarés</h2>
+      <p class="banner-caption">Votre Espace de Supervision des Sinistres</p>
+    </mat-card>
+    
+    <!-- Ajout du filtre par statut -->
+    <mat-card class="filter-card">
+      <h3>Filtres</h3>
+      <div class="filter-options">
+        <mat-button-toggle-group [(ngModel)]="filtreStatut" (change)="filtrerSinistres()">
+          <mat-button-toggle [value]="statuts.EN_ATTENTE">En attente</mat-button-toggle>
+          <mat-button-toggle [value]="statuts.VALIDE">Validés</mat-button-toggle>
+          <mat-button-toggle [value]="'TOUS'">Tous</mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </mat-card>
+  </div>
+
+  <!-- Section dynamique à droite -->
+  <div class="right-section">
+    <!-- Zone de chargement globale -->
+    <mat-card *ngIf="isLoading" class="loading-card">
+      <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+      <p>Chargement des sinistres...</p>
+    </mat-card>
+
+    <!-- Liste des sinistres -->
+    <div *ngIf="!isLoading" class="sinistres-list">
+      <div *ngIf="sinistresFiltres.length === 0" class="no-sinistres">
+        <p>Aucun sinistre {{ getFilterLabel() }} trouvé.</p>
+      </div>
+      
+      <mat-card *ngFor="let sinistre of sinistresFiltres" class="sinistre-card">
+        <!-- En-tête du sinistre -->
+        <div class="header">
+          <div class="status-badge" [ngClass]="'status-' + sinistre.statut.toLowerCase()">
+            <mat-icon [matTooltip]="getStatusLabel(sinistre.statut)">
+              {{ sinistre.statut === statuts.VALIDE ? 'check_circle' : 
+                 sinistre.statut === statuts.EN_ATTENTE ? 'schedule' : 
+                 sinistre.statut === statuts.REFUSE ? 'cancel' : 'info' }}
+            </mat-icon>
+          </div>
+          <h2 class="title">Sinistre #{{ sinistre.id }}</h2>
+          <span class="date-badge">
+            {{ sinistre.dateDeclaration | date:'dd/MM/yyyy' }}
+          </span>
+        </div>
+        
+        <mat-divider></mat-divider>
+        
+        <!-- Informations principales -->
+        <div class="sinistre-main-info">
+          <div class="sinistre-detail">
+            <span class="detail-label">Statut:</span>
+            <span class="detail-value status-{{ sinistre.statut.toLowerCase() }}">
+              {{ getStatusLabel(sinistre.statut) }}
+            </span>
+          </div>
+          
+          <div class="sinistre-detail" *ngIf="sinistre.type">
+            <span class="detail-label">Type:</span>
+            <span class="detail-value">{{ sinistre.type }}</span>
+          </div>
+          
+          <div class="sinistre-detail" *ngIf="sinistre.lieu">
+            <span class="detail-label">Lieu:</span>
+            <span class="detail-value">{{ sinistre.lieu }}</span>
+          </div>
+          
+          <div class="sinistre-detail" *ngIf="sinistre.agenceClient">
+            <span class="detail-label">Agence Client:</span>
+            <span class="detail-value">{{ sinistre.agenceClient }}</span>
+          </div>
+          
+          <div class="sinistre-detail" *ngIf="sinistre.numeroAssurence">
+            <span class="detail-label">N° Assurance:</span>
+            <span class="detail-value">{{ sinistre.numeroAssurence }}</span>
+          </div>
+        </div>
+        
+        <!-- Commentaire du sinistre -->
+        <div class="comments-section" *ngIf="sinistre.commentaire">
+          <h3>Commentaires:</h3>
+          <p class="additional-comments">{{ sinistre.commentaire }}</p>
+        </div>
+
+        <!-- Informations sur l'adversaire (si disponibles) -->
+        <mat-expansion-panel *ngIf="hasAdversaireInfo(sinistre)" class="adversaire-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>person</mat-icon> Informations sur l'adversaire
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          
+          <div class="adversaire-details">
+            <div class="sinistre-detail" *ngIf="sinistre.prenomAdversaire || sinistre.nomAdversaire">
+              <span class="detail-label">Nom:</span>
+              <span class="detail-value">
+                {{ sinistre.prenomAdversaire || '' }} {{ sinistre.nomAdversaire || '' }}
+              </span>
+            </div>
+            
+            <div class="sinistre-detail" *ngIf="sinistre.numeroAssurenceAdversaire">
+              <span class="detail-label">N° Assurance:</span>
+              <span class="detail-value">{{ sinistre.numeroAssurenceAdversaire }}</span>
+            </div>
+            
+            <div class="sinistre-detail" *ngIf="sinistre.matriculeAdvr">
+              <span class="detail-label">Immatriculation:</span>
+              <span class="detail-value">{{ sinistre.matriculeAdvr }}</span>
+            </div>
+            
+            <div class="sinistre-detail" *ngIf="sinistre.marqueVoitureAdvr">
+              <span class="detail-label">Marque du véhicule:</span>
+              <span class="detail-value">{{ sinistre.marqueVoitureAdvr }}</span>
+            </div>
+            
+            <div class="sinistre-detail" *ngIf="sinistre.agenceAdvr">
+              <span class="detail-label">Agence:</span>
+              <span class="detail-value">{{ sinistre.agenceAdvr }}</span>
+            </div>
+          </div>
+        </mat-expansion-panel>
+        
+        <!-- Galerie d'images -->
+        <div class="images-section" *ngIf="sinistre.images && sinistre.images.length > 0">
+          <h3>Photos:</h3>
+          <div class="image-gallery">
+            <div class="image-container" *ngFor="let image of sinistre.images">
+              <img [src]="getImageUrl(image)" alt="Photo du sinistre" class="sinistre-image"
+                   (click)="handleImageClick($event)">
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions sur le sinistre -->
+        <div class="sinistre-actions">
+          <button 
+            *ngIf="sinistre.statut === statuts.EN_ATTENTE"
+            mat-raised-button 
+            color="primary" 
+            class="action-button"
+            (click)="validateSinistre(sinistre)">
+            <mat-icon>check_circle</mat-icon> Valider
+          </button>
+          <button 
+            mat-raised-button 
+            color="warn" 
+            class="action-button"
+            (click)="deleteSinistre(sinistre)">
+            <mat-icon>delete</mat-icon> Supprimer
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

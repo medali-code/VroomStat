@@ -1,0 +1,222 @@
+/* Couleurs utilisées directement */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background: #1f1f1f;
+  color: #333;
+}
+
+/* Conteneur général de la page */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Bouton retour à l'accueil */
+.back-home {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 1rem;
+}
+.btn-home {
+  text-decoration: none;
+  font-size: 16px;
+  color: #0355cc;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+.btn-home i {
+  margin-right: 0.5rem;
+  font-size: 18px;
+}
+.btn-home:hover {
+  color: #E52A29;
+}
+
+/* Carte de connexion */
+.login-card {
+  width: 100%;
+  max-width: 900px;
+  background: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* Diviser la carte en deux colonnes */
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Section du formulaire */
+.form-section {
+  flex: 1 1 400px;
+  padding: 2rem;
+}
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+.logo {
+  width: 200px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.welcome-text {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 800;
+  margin-top: 0.5rem;
+  color: #000000;
+}
+.form-intro {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Champs de formulaire */
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  outline: none;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+.form-group input:focus {
+  border-color: #0355cc;
+}
+.form-group label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: all 0.3s ease;
+  color: #777;
+  background: #FFFFFF;
+  padding: 0 0.25rem;
+}
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label {
+  top: -10px;
+  font-size: 0.85rem;
+  color: #0355cc;
+}
+
+/* Boutons et liens */
+.actions {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.btn {
+  border: none;
+  border-radius: 25px;
+  padding: 12px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.btn-primary {
+  background-color: #0355cc;
+  color: #fff;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+.btn-primary:hover {
+  background-color: #0245a0;
+}
+.forgot-password {
+  display: block;
+  font-size: 14px;
+  color: #0355cc;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+.forgot-password:hover {
+  color: #E52A29;
+}
+
+/* Inscription */
+.register {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 14px;
+  color: #555;
+}
+.btn-secondary {
+  background-color: #E52A29;
+  color: #fff;
+  border: none;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: #c22a1f;
+}
+
+/* Section d'information */
+.info-section {
+  flex: 1 1 300px;
+  background: linear-gradient(135deg, #0355cc 0%, #E52A29 100%);
+  color: #FFFFFF;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.info-section h4 {
+  margin-bottom: 1rem;
+}
+.info-section p {
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column;
+  }
+  .info-section {
+    text-align: center;
+  }
+}
+.info-section {
+  padding: 3rem 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #0355cc 0%, #E52A29 100%);
+  border-radius: 12px;
+  max-width: 800px;
+}
+
+.info-section h4 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.info-section p {
+  font-size: 1.125rem;
+  color: #f6f6f6;
+  line-height: 1.625;
+  margin: 0 auto 2rem;
+  max-width: 680px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}

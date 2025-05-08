@@ -1,0 +1,114 @@
+/* Contexte global de la section d'inscription */
+.signup {
+  background: linear-gradient(135deg, #0355cc, #E52A29);
+  min-height: 200vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Carte d'inscription */
+.card-registration {
+  border-radius: 15px;
+  overflow: hidden;
+  background: #FFFFFF;
+  color: #333;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Conteneur de l'image */
+.image-container {
+  overflow: hidden;
+  position: relative;
+}
+ .image-side {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+  }
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* Effet de zoom sur l'image au survol */
+.image-container:hover img {
+  transform: scale(1.05);
+}
+
+/* Carte interne (formulaire) */
+.card-body {
+  padding: 2rem;
+}
+
+/* Titre du formulaire */
+.title {
+  color: #0355cc;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Champs de saisie */
+.form-outline .form-control {
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 0.75rem 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #F8F8F8;
+}
+
+.form-outline .form-control:focus {
+  border-color: #E52A29;
+  box-shadow: 0 0 5px rgba(229, 42, 41, 0.5);
+  background-color: #fff;
+}
+
+.form-outline label {
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+/* Boutons */
+.btn-primary {
+  background-color: #0355cc;
+  border: none;
+  border-radius: 25px;
+  padding: 0.5rem 2rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #024aab;
+  transform: translateY(-2px);
+}
+
+.btn-light {
+  background-color: #FFFFFF;
+  color: #333;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  padding: 0.5rem 2rem;
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.btn-light:hover {
+  background-color: #F0F0F0;
+  transform: translateY(-2px);
+}
+
+/* Adaptation responsive pour une meilleure expérience mobile */
+@media (max-width: 768px) {
+  .card-registration {
+    margin: 0 1rem;
+  }
+
+  .image-container {
+    display: none;
+  }
+}
+ 

@@ -1,0 +1,317 @@
+<body>
+  <!-- Navbar -->
+  <app-nav-client></app-nav-client>
+
+  <!-- slider section -->
+  <section class="slider_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h1>
+              Gestion des <br />
+              Tâches Clients <br />
+              Simplifiée
+            </h1>
+            <p>
+              Vroomstat vous offre une solution innovante pour déclarer un
+              sinistre, gérer votre véhicule et donner votre avis en toute
+              simplicité. Optimisez vos démarches et gagnez en efficacité.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="assets/slider-img.png" alt="Illustration de la solution" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end slider section -->
+
+  <!-- feature section -->
+  <section class="feature_section">
+    <div class="container">
+      <div class="feature_container">
+        <div class="box">
+          <div class="img-box">
+            <!-- Lien router et icône actualisée pour "Déclaration de Sinistre" -->
+            <a [routerLink]="['/client/sinistre']">
+              <i class="fas fa-exclamation-triangle fa-3x"></i>
+            </a>
+          </div>
+          <h5 class="name">Déclaration de Sinistre</h5>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <!-- Lien router et icône pour "Gestion de Véhicule" -->
+            <a [routerLink]="['client/vehicules']">
+              <i class="fas fa-car fa-3x"></i>
+            </a>
+          </div>
+          <h5 class="name">Gestion de Véhicule</h5>
+        </div>
+        <div class="box active">
+          <div class="img-box">
+            <!-- Lien router et icône pour "Donner Avis" -->
+            <a [routerLink]="['/client/avis']">
+              <i class="fas fa-comments fa-3x"></i>
+            </a>
+          </div>
+          <h5 class="name">Donner Avis</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end feature section -->
+
+  <!-- about section -->
+  <section class="about_section layout_padding-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-6">
+          <div class="detail-box">
+            <h2>À propos de Vroomstat</h2>
+            <p>
+              Vroomstat est une solution innovante dédiée aux tâches clients.
+              Notre plateforme intuitive vous permet de déclarer un sinistre, de
+              gérer vos véhicules et de donner votre avis de manière efficace et
+              sécurisée, simplifiant ainsi vos démarches quotidiennes.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-7 col-md-6">
+          <div class="img-box">
+            <img src="assets/constatauto.jpg" alt="À propos de Vroomstat" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end about section -->
+
+  <!-- professional section -->
+  <section class="professional_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="img-box">
+            <img src="assets/professional-img.png" alt="Gestion Professionnelle" />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="detail-box">
+            <h2>
+              Une gestion professionnelle de vos tâches clients.
+            </h2>
+            <p>
+              Grâce à Vroomstat, bénéficiez d’un suivi complet et sécurisé de vos
+              opérations : de la déclaration de sinistre à la gestion de votre
+              véhicule, en passant par la collecte de vos avis. Simplifiez votre
+              quotidien et améliorez vos processus.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end professional section -->
+
+  <!-- service section -->
+  <section class="service_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Nos Services</h2>
+      </div>
+      <div class="row">
+        <!-- Service Déclaration de Sinistre -->
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box text-center">
+              <a [routerLink]="['/client/declaration']">
+                <i class="fas fa-car-crash fa-3x" style="color: #0355cc;"></i>
+              </a>
+            </div>
+            <div class="detail-box">
+              <h5>Déclaration de Sinistre</h5>
+              <p>
+                Déclarez rapidement et efficacement tout sinistre grâce à notre
+                interface intuitive.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Service Gestion de Véhicule -->
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box text-center">
+              <a [routerLink]="['/client/vehicules']">
+                <i class="fas fa-car fa-3x" style="color: #0355cc;"></i>
+              </a>
+            </div>
+            <div class="detail-box">
+              <h5>Gestion de Véhicule</h5>
+              <p>
+                Gérez l’ensemble de vos véhicules et suivez leur historique en quelques clics.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Service Donner Votre Avis -->
+        <div class="col-sm-6 col-md-4 mx-auto">
+          <div class="box">
+            <div class="img-box text-center">
+              <a [routerLink]="['/client/avis']">
+                <i class="fas fa-comment-dots fa-3x" style="color: #0355cc;"></i>
+              </a>
+            </div>
+            <div class="detail-box">
+              <h5>Donner Votre Avis</h5>
+              <p>
+                Partagez votre expérience et donnez votre avis pour améliorer nos services.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end service section -->
+
+  <section class="client_section">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2>Ce que disent nos utilisateurs</h2>
+      </div>
+      <div class="carousel-wrap layout_padding2-top">
+        <div class="owl-carousel">
+          @for (avis of listeAvis; track $index) {
+          <div  class="item">
+            <div class="box">
+              <div class="client_id">
+                <div class="client_detail">
+                  <div class="client_info">
+                    <h6>{{ avis.client.nomClient }}</h6> 
+                    @for (i of getArrayFromNumber(avis.note); track $index) {
+                    <ng-container >
+                      <i class="fas fa-star" aria-hidden="true"></i>
+                    </ng-container>}
+                  </div>
+                  <i class="fas fa-quote-left" aria-hidden="true"></i>
+                </div>
+              </div>
+              <div class="client_text">
+                <p>
+                  {{ avis.commentaire }} </p>
+              </div>
+            </div>
+          </div>}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end client section -->
+
+  <!-- contact section -->
+  <section class="contact_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>Contactez-nous</h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <!-- Formulaire réactif -->
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+            <div>
+              <input type="text" placeholder="Nom" formControlName="nom" />
+            </div>
+            <div>
+              <input type="text" placeholder="Numéro de téléphone" formControlName="telephone" />
+            </div>
+            <div>
+              <input type="email" placeholder="Email" formControlName="email" />
+            </div>
+            <div>
+              <input type="text" class="message-box" placeholder="Message" formControlName="message" />
+            </div>
+            <div class="d-flex">
+              <button type="submit" [disabled]="!contactForm.valid">ENVOYER</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="map_container">
+            <div class="map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13248.681827693847!2d10.094686682338807!3d33.88526358487537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12556fbb8b699be5%3A0xc826109360c22c1c!2sBab%20Bhar%2C%20Gab%C3%A8s!5e0!3m2!1sfr!2stn!4v1743601815318!5m2!1sfr!2stn"
+                width="600"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end contact section -->
+
+  <!-- info section -->
+  <section class="info_section">
+    <div class="container">
+      <h4>Restez en contact</h4>
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          <div class="info_items">
+            <div class="row">
+              <div class="col-md-4">
+                <a href="#">
+                  <div class="item">
+                    <div class="img-box">
+                      <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <p>123 Rue de l'Exemple, Ville, Pays</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-4">
+                <a href="#">
+                  <div class="item">
+                    <div class="img-box">
+                      <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <p>+02 1234567890</p>
+                  </div>
+                </a>
+              </div>
+              <div class="col-md-4">
+                <a href="#">
+                  <div class="item">
+                    <div class="img-box">
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                    <p>contactvroomstatgmail.com</p>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="social-box">
+        <h4>Suivez-nous</h4>
+        <div class="box">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end info section -->
+</body>

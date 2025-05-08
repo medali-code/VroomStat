@@ -1,0 +1,245 @@
+/* Global Styling */
+* {
+  box-sizing: border-box;
+}
+
+.header_bottom {
+  background-color: #E52A29;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Navbar Branding - Logo near the center but still on the left */
+.navbar-brand {
+  display: flex;
+  justify-content: flex-start; /* Align the logo to the left */
+  align-items: center;
+  padding: 0;
+  margin-left: 20%; /* Shift the logo to the left but keep it near the center */
+}
+
+/* Logo Styling */
+.navbar-brand .logo {
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  transition: transform 0.3s ease;
+}
+
+/* Navbar Links */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-left: auto; /* Push links to the right */
+}
+
+.nav-link {
+  color: #FFFFFF;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  font-weight: 600;
+}
+
+/* Règle pour le lien actif : couleur noire */
+.nav-link.active {
+  color: #000000;
+}
+
+/* Optionnel : garder la couleur noire lors du hover du lien actif */
+.nav-link.active:hover,
+.nav-link.active:focus {
+  color: #000000;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: #0355cc;
+  outline: none;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #0355cc;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Navbar Toggler */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+  color: #FFFFFF;
+  padding: 8px;
+  order: 2;
+}
+
+.navbar-toggler:focus {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.navbar-toggler-icon {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: currentColor;
+  position: relative;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: currentColor;
+  left: 0;
+  transition: all 0.3s ease;
+}
+
+.navbar-toggler-icon::before {
+  top: -8px;
+}
+
+.navbar-toggler-icon::after {
+  top: 8px;
+}
+
+/* Buttons Styling */
+.buttons {
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.buttons .btn {
+  padding: 8px 24px;
+  font-size: 14px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.buttons .log {
+  background-color: transparent;
+  border-color: #0355cc;
+  color: #0355cc;
+}
+
+.buttons .log:hover {
+  background-color: #0355cc;
+  color: #FFFFFF;
+}
+
+.buttons .reg {
+  background-color: #FFFFFF;
+  color: #E52A29;
+  border-color: #FFFFFF;
+}
+
+.buttons .reg:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Icon Styling for Logout */
+.nav-item .fa-power-off {
+  font-size: 20px;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.nav-item .fa-power-off:hover {
+  color: #0355cc;
+  transform: scale(1.1);
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 991px) {
+  .navbar-brand {
+    position: static;
+    transform: none;
+    margin: 0;
+  }
+  
+  .navbar-brand .logo {
+    width: 150px;
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 0;
+    align-items: center;
+  }
+
+  .buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .nav-link {
+    padding: 8px 0;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand .logo {
+    width: 128px;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Même structure que nav-admin avec variations visuelles */
+.header_bottom-client {
+  background-color: #E52A29; /* Rouge corporate */
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand-client {
+  margin-left: 20%;
+}
+
+.nav-link-client {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.nav-link-client:hover {
+  color: #0355CC; /* Bleu interactif */
+}
+
+.btn-client {
+  border-radius: 20px;
+  background-color: #FFFFFF; /* Boutons blancs */
+}

@@ -1,0 +1,91 @@
+<app-nav-client></app-nav-client>
+<div class="profile-container">
+  <div class="profile-card">
+    <!-- Sidebar Profil -->
+    <div class="sidebar">
+      <div class="profile-image-container">
+        <img [src]="profileImageUrl" alt="Image de Profil" class="profile-image" 
+             (error)="profileImageUrl = defaultImageUrl">
+        <div *ngIf="imageLoadError" class="image-error-message">
+          Impossible de charger l'image de profil
+        </div>
+        <!-- Champ de fichier caché -->
+        <input type="file" id="profileImageInput" #fileInput (change)="onProfileImageChange($event)" accept="image/*" hidden>
+        <!-- Bouton de téléchargement déclenchant l'upload -->
+        <button type="button" (click)="fileInput.click()" class="upload-btn">
+          Importer une photo
+        </button>
+        <div *ngIf="imageChanged" class="image-changed-indicator">
+          Photo modifiée (non enregistrée)
+        </div>
+      </div>
+      <div class="profile-user-info">
+        <span class="user-name">{{profileForm.get('firstName')?.value}} {{profileForm.get('lastName')?.value}}</span>
+      </div>
+    </div>
+
+    <!-- Section Formulaire -->
+    <div class="content">
+      <h4>Paramètres du profil</h4>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="lastName">Nom</label>
+            <input id="lastName" type="text" formControlName="lastName" placeholder="Votre nom">
+            <div *ngIf="profileForm.get('lastName')?.invalid && profileForm.get('lastName')?.touched" class="error-message">
+              Le nom est requis
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="firstName">Prénom</label>
+            <input id="firstName" type="text" formControlName="firstName" placeholder="Votre prénom">
+            <div *ngIf="profileForm.get('firstName')?.invalid && profileForm.get('firstName')?.touched" class="error-message">
+              Le prénom est requis
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input id="phone" type="text" formControlName="phone" placeholder="Numéro de téléphone">
+            <div *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched" class="error-message">
+              Le téléphone est requis
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" placeholder="Votre email">
+            <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="error-message">
+              Email invalide ou manquant
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Mot de passe (laisser vide si inchangé)</label>
+            <input id="password" type="password" formControlName="password" placeholder="Nouveau mot de passe">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="address">Adresse</label>
+            <input id="address" type="text" formControlName="address" placeholder="Adresse complète">
+            <div *ngIf="profileForm.get('address')?.invalid && profileForm.get('address')?.touched" class="error-message">
+              L'adresse est requise
+            </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary" [disabled]="saving">
+            {{ saving ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+        </div>
+        <!-- Message de retour -->
+        <div class="feedback-message" *ngIf="message" [class.success]="message.includes('succès')"
+             [class.error]="message.includes('erreur') || message.includes('Erreur')">
+          {{ message }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

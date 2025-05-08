@@ -1,0 +1,141 @@
+
+
+<app-nav-client></app-nav-client>
+
+<div class="container">
+  <h2>Déclaration Sinistre</h2>
+
+  <form [formGroup]="declarerSinistreForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="dateSinistre">Date Sinistre *</label>
+      <input type="date" formControlName="dateSinistre" id="dateSinistre" class="form-control" />
+      <div *ngIf="declarerSinistreForm.get('dateSinistre')?.invalid && declarerSinistreForm.get('dateSinistre')?.touched" class="error">
+        La date est requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="lieuSinistre">Lieu du Sinistre *</label>
+      <input type="text" formControlName="lieuSinistre" id="lieuSinistre" class="form-control" placeholder="Ex: Avenue Bourguiba, Tunis" />
+      <div *ngIf="declarerSinistreForm.get('lieuSinistre')?.invalid && declarerSinistreForm.get('lieuSinistre')?.touched" class="error">
+        Le lieu est requis.
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>Information Adversaire :</legend>
+
+      <div class="form-group">
+        <label for="nomAdversaire">Nom Adversaire </label>
+        <input type="text" formControlName="nomAdversaire" id="nomAdversaire" class="form-control" placeholder="Nom de l'adversaire" />
+      </div>
+      <div class="form-group">
+        <label for="prenomAdversaire">Prénom Adversaire </label>
+        <input type="text" formControlName="prenomAdversaire" id="prenomAdversaire" class="form-control" placeholder="Prénom de l'adversaire" />
+      </div>
+      <div class="form-group">
+        <label for="numeroAssurenceAdversaire">Numéro Assurence Adversaire </label>
+        <input type="text" formControlName="numeroAssurenceAdversaire" id="numeroAssurenceAdversaire" class="form-control" placeholder="Numéro d'assurance" />
+      </div>
+       <div class="form-group">
+        <label for="agenceAdvr">Agence Adversaire </label>
+        <input type="text" formControlName="agenceAdvr" id="agenceAdvr" class="form-control" placeholder="Nom de l'agence" />
+      </div>
+      <div class="form-group">
+        <label for="marqueVoitureAdvr">Marque Voiture Adversaire </label>
+        <input type="text" formControlName="marqueVoitureAdvr" id="marqueVoitureAdvr" class="form-control" placeholder="Marque du véhicule" />
+      </div>
+      <div class="form-group">
+        <label for="matriculeAdvr">Matricule Voiture Adversaire </label>
+        <input type="text" formControlName="matriculeAdvr" id="matriculeAdvr" class="form-control" placeholder="Numéro d'immatriculation" />
+      </div>
+    </fieldset>
+
+    <div class="form-group">
+      <label for="vehiculeId">Véhicule *</label>
+      <select id="vehiculeId" formControlName="vehiculeId" class="form-control">
+        <option value="" disabled selected>-- Sélectionnez votre véhicule --</option> <option *ngIf="loadingVehicules" disabled>Chargement des véhicules...</option>
+        <option *ngFor="let vehicule of userVehicules" [value]="vehicule.id">
+          {{ vehicule.immatriculation }} - {{ vehicule.marque }}
+        </option>
+         <option *ngIf="!loadingVehicules && userVehicules.length === 0" disabled>Aucun véhicule disponible</option>
+      </select>
+      <div *ngIf="declarerSinistreForm.get('vehiculeId')?.invalid && declarerSinistreForm.get('vehiculeId')?.touched" class="error">
+        Sélection du véhicule requise.
+      </div>
+    </div>
+
+     <div class="form-group">
+      <label for="immatriculation">Immatriculation *</label>
+      <input type="text" formControlName="immatriculation" id="immatriculation" class="form-control" readonly /> </div>
+
+
+    <div class="form-group">
+      <label for="agenceClient"><strong>Agence *</strong></label>
+      <input type="text" formControlName="agenceClient" id="agenceClient" class="form-control" placeholder="Nom de votre agence" />
+        <div *ngIf="declarerSinistreForm.get('agenceClient')?.invalid && declarerSinistreForm.get('agenceClient')?.touched" class="error">
+          L'agence est requise.
+        </div>
+    </div>
+    <div class="form-group">
+      <label for="numeroAssurence"><strong>Numéro Assurence *</strong></label>
+      <input type="text" formControlName="numeroAssurence" id="numeroAssurence" class="form-control" placeholder="Votre numéro d'assurance" />
+       <div *ngIf="declarerSinistreForm.get('numeroAssurence')?.invalid && declarerSinistreForm.get('numeroAssurence')?.touched" class="error">
+          Le numéro d'assurance est requis.
+        </div>
+    </div>
+
+
+    <div class="form-group damaged-glass-group">
+      <label><strong>Glace(s) endommagée(s) (Sélectionnez au moins une option) *</strong></label>
+      <div formArrayName="glaceEndommagee" class="checkbox-group">
+        <div *ngFor="let option of glaceOptions; index as i" class="checkbox-item">
+          <input type="checkbox" [formControlName]="i" id="glace{{i}}" />
+          <label [for]="'glace' + i">{{ option.label }}</label>
+        </div>
+      </div>
+      <div *ngIf="declarerSinistreForm.get('glaceEndommagee')?.errors?.['required'] && declarerSinistreForm.get('glaceEndommagee')?.touched" class="error">
+        Veuillez sélectionner au moins une option.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="photoVitre"><strong>Photos de la vitre endommagée</strong></label>
+      <input type="file" id="photoVitre" class="form-control" multiple accept="image/jpeg, image/png, image/gif" (change)="onImagesSelected($event)" />
+      <small class="form-text text-muted">Formats acceptés: JPG, JPEG, PNG, GIF. Taille max: 5MB par image.</small>
+
+      <div *ngIf="imagePreviewUrls.length > 0" class="image-previews mt-3">
+        <div *ngFor="let url of imagePreviewUrls; let i = index" class="image-preview-container">
+          <img [src]="url" alt="Aperçu de l'image" class="image-preview" />
+          <button type="button" class="btn btn-sm btn-danger remove-image" (click)="removeImage(i)">
+            X
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-group">
+      <label for="commentaires">Commentaires complémentaires</label>
+      <textarea formControlName="commentaires" id="commentaires" class="form-control" rows="4" placeholder="Ajoutez vos commentaires ici"></textarea>
+    </div>
+
+    <div class="form-group certification">
+      <input type="checkbox" formControlName="certification" id="certification" />
+      <label for="certification">Je certifie que les informations fournies sont véridiques et correctes *</label>
+      <div *ngIf="declarerSinistreForm.get('certification')?.invalid && declarerSinistreForm.get('certification')?.touched" class="error">
+        Cette certification est requise.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" [disabled]="declarerSinistreForm.invalid || submitting">
+        {{ submitting ? 'Déclaration en cours...' : 'Déclarer maintenant' }}
+      </button>
+    </div>
+  </form>
+</div>

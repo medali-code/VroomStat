@@ -1,0 +1,47 @@
+<form [formGroup]="vehiculeForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="marque">Marque*</label>
+    <input id="marque" type="text" formControlName="marque" class="form-control">
+    <div *ngIf="vehiculeForm.get('marque')?.invalid && vehiculeForm.get('marque')?.touched" class="error-message">
+      La marque est requise
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="modele">Modèle*</label>
+    <input id="modele" type="text" formControlName="modele" class="form-control">
+    <div *ngIf="vehiculeForm.get('modele')?.invalid && vehiculeForm.get('modele')?.touched" class="error-message">
+      Le modèle est requis
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="immatriculation">Immatriculation*</label>
+    <input id="immatriculation" type="text" formControlName="immatriculation" class="form-control">
+    <div *ngIf="vehiculeForm.get('immatriculation')?.invalid && vehiculeForm.get('immatriculation')?.touched" class="error-message">
+      L'immatriculation est requise
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="couleur">Couleur*</label>
+    <input id="couleur" type="text" formControlName="couleur" class="form-control">
+    <div *ngIf="vehiculeForm.get('couleur')?.invalid && vehiculeForm.get('couleur')?.touched" class="error-message">
+      La couleur est requise
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="annee">Année*</label>
+    <input id="annee" type="number" formControlName="annee" class="form-control">
+    <div *ngIf="vehiculeForm.get('annee')?.invalid && vehiculeForm.get('annee')?.touched" class="error-message">
+      <span *ngIf="vehiculeForm.get('annee')?.errors?.['required']">L'année est requise</span>
+      <span *ngIf="vehiculeForm.get('annee')?.errors?.['pattern']">L'année doit être un nombre à 4 chiffres</span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" (click)="closeForm()">Annuler</button>
+    <button type="submit" [disabled]="vehiculeForm.invalid">Enregistrer</button>
+  </div>
+</form>

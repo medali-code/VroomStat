@@ -1,0 +1,53 @@
+<div class="login-container">
+  <!-- Bouton de retour à l'accueil -->
+  <div class="back-home">
+    <a routerLink="/" class="btn-home">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i>
+      <span>Accueil</span>
+    </a>
+  </div>
+  <div class="login-card">
+    <div class="card-content">
+      <!-- Section formulaire de connexion -->
+      <div class="form-section">
+        <div class="logo-container">
+          <!-- Chemin vers votre logo -->
+          <img src="assets/logo couleur.png" alt="VroomStat Logo" class="logo" />
+          <h4 class="welcome-text">Bienvenue sur VroomStat</h4>
+        </div>
+        <p class="form-intro">Connectez-vous à votre compte</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="email" formControlName="email" placeholder=" " required />
+            <label for="email">Identifiant (Email ou téléphone)</label>
+          </div>
+          <div class="form-group">
+            <input type="password" formControlName="password" placeholder=" " required />
+            <label for="password">Mot de passe</label>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Se connecter</button>
+            <a routerLink="/forget" class="forgot-password">Mot de passe oublié ?</a>
+          </div>
+          <div class="register">
+            <span>Vous n'avez pas de compte ?</span>
+            <button type="button" class="btn btn-secondary" (click)="redirectToSignUp()">Créer un compte</button>
+          </div>
+          <!-- Affichage de l'erreur si elle existe -->
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+        </form>
+      </div>
+
+      <!-- Section d'information sur VroomStat -->
+      <div class="info-section">
+        <h4>VroomStat <br>Gérez vos constats en un clin d'œil</h4>
+        <p>
+          Gérez vos constats en toute simplicité et sécurité grâce à notre plateforme intuitive.
+          Enregistrez, suivez et partagez vos constats en quelques clics pour une gestion optimisée.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

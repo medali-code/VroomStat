@@ -1,0 +1,60 @@
+<app-nav-admin></app-nav-admin>
+<div class="reviews-container">
+  <div class="left-section">
+    <img src="assets/Avis.jpg" alt="Gestion des avis" class="image">
+    <div class="caption">
+      <h2>Centre des Avis</h2>
+      <p>Faites la différence en écoutant ce que vos clients ont à dire</p>
+    </div>
+  
+  </div>
+  
+  <div class="right-section">
+    <h1>Avis Clients</h1>
+    
+    <!-- Indicateur de chargement -->
+    <div *ngIf="loading" class="loading-indicator">
+      <span>Chargement des avis...</span>
+    </div>
+    
+    <!-- Message si aucun avis -->
+    <div *ngIf="!loading && reviews.length === 0" class="no-reviews">
+      <p>Aucun avis client disponible pour le moment.</p>
+    </div>
+    
+    <!-- Tableau des avis -->
+    <table *ngIf="!loading && reviews.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Utilisateur</th>
+          <th>Note</th>
+          <th>Commentaire</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let review of reviews">
+          <td>{{ review.id }}</td>
+          <td>{{ review.user }}</td>
+          <td>
+            <span class="stars">
+              <ng-container *ngFor="let star of [1,2,3,4,5]; let i = index">
+                <i class="fa" [class.fa-star]="i < review.note" [class.fa-star-o]="i >= review.note"></i>
+              </ng-container>
+            </span>
+          </td>
+          <td class="comment-cell">{{ review.commentaire }}</td>
+          
+        
+          <td class="actions">
+           
+            <button (click)="deleteReview(review)" class="btn delete">
+              <i class="fa fa-trash"></i> Supprimer
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
